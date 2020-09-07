@@ -9,9 +9,19 @@
 
 import { Connection } from 'mysql';
 import { IQuery } from './query';
+import drop from './tables/drop';
 import truncate from './tables/truncate';
 
 export interface ITables {
+  /**
+   * Delete a table if it exists.
+   * 
+   * @function
+   * @param { string } name
+   * @returns { IQuery<boolean> }
+   */
+  deleteTable(name: string): IQuery<boolean>;
+
   /**
    * Truncate a table if it exists.
    * 
@@ -26,6 +36,7 @@ export default function tables(
   connection: Connection,
 ): ITables {
   return {
+    deleteTable: (name: string) => drop(name, connection),
     truncateTable: (name: string) => truncate(name, connection),
   };
 }

@@ -9,10 +9,27 @@
 
 import { IQuery } from './query';
 import { Connection } from 'mysql';
-import create from './databases/create';
+import create, { ICreate } from './databases/create';
+import drop from './databases/drop';
 
 export interface IDatabases {
-  createDatabase(name: string): IQuery<boolean>;
+  /**
+   * Create a new database.
+   * 
+   * @function
+   * @param { string } name
+   * @returns { ICreate }
+   */
+  createDatabase(name: string): ICreate;
+
+  /**
+   * Delete an existing database.
+   * 
+   * @function
+   * @param { string } name
+   * @returns { IQuery<boolean> }
+   */
+  deleteDatabase(name: string): IQuery<boolean>;
 }
 
 export default function databases(
@@ -20,5 +37,6 @@ export default function databases(
 ): IDatabases {
   return {
     createDatabase: (name: string) => create(name, connection),
+    deleteDatabase: (name: string) => drop(name, connection),
   };
 }

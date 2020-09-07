@@ -10,12 +10,45 @@
 import { Connection } from 'mysql';
 import { IQuery } from '../query';
 
+export interface ICreate extends IQuery<boolean> {
+  characterSet(name: string): ICreate;
+
+  collate(name: string): ICreate;
+}
+
 export default function create(
   databaseName: string,
   connection: Connection,
-): IQuery<boolean> {
+): ICreate {
+  const create: ICreate = {
+    toString,
+    execute,
+    characterSet,
+    collate,
+  };
+
+  const data = {
+    characterSet: '',
+    collate: '',
+  };
+
+  function characterSet(name: string): ICreate {
+    data.characterSet = name;
+    return create;
+  }
+
+  function collate(name: string): ICreate {
+    data.collate = name;
+    return create;
+  }
+
   function toString(): string {
-    return `CREATE DATABASE IF NOT EXISTS ${databaseName};`;
+    return `
+      CREATE DATABASE IF NOT EXISTS ${databaseName}
+      ${data.characterSet !== '' ? ` CHARACTER SET ${data.characterSet}` : ''}
+      ${data.collate !== '' ? `COLLATE ${data.collate}` : ''}
+      ;
+    `;
   }
 
   function execute(): Promise<boolean> {
@@ -35,8 +68,5 @@ export default function create(
     });
   }
 
-  return {
-    toString,
-    execute,
-  };
+  return create;
 }

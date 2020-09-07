@@ -17,7 +17,7 @@ const nextDatabase = require('../lib/index');
       host: 'localhost',
       port: 3306,
       user: 'root',
-      password: 'daniel1',
+      password: '',
       database: 'nextDatabase',
     }, {
       createDatabaseIfNotExists: true,

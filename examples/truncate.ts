@@ -7,7 +7,7 @@
  * @format
  */
 
-import nextDatabase from '../src/index';
+import nextDatabase from '../lib/index';
 
 (async () => {
   try {
