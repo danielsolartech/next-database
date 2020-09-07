@@ -1,0 +1,36 @@
+{
+  "name": "next-database",
+  "version": "1.0.0",
+  "description": "ORM for MySQL.",
+  "main": "./lib/index.js",
+  "type": "./lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "truncate-example-ts": "ts-node ./examples/truncate.ts",
+    "truncate-example-js": "node ./examples/truncate.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielsolartech/next-database.git"
+  },
+  "keywords": [
+    "ORM",
+    "MySQL",
+    "database"
+  ],
+  "author": "Daniel Solarte Chaverra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danielsolartech/next-database/issues"
+  },
+  "homepage": "https://github.com/danielsolartech/next-database#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "@types/mysql": "^2.15.15",
+    "@types/node": "^14.6.4",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
+  }
+}
