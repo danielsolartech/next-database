@@ -7,7 +7,7 @@
  * @format
  */
 
-const nextDatabase = require('../lib/index');
+const nextDatabase = require('../../lib/index');
 
 (async () => {
   try {
@@ -21,6 +21,7 @@ const nextDatabase = require('../lib/index');
       database: 'nextDatabase',
     }, {
       createDatabaseIfNotExists: true,
+      destroyDatabaseAfterClose: true,
     });
 
     console.log('Connected to the database');

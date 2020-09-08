@@ -7,7 +7,7 @@
  * @format
  */
 
-import nextDatabase from '../lib/index';
+import nextDatabase from '../../lib/index';
 
 (async () => {
   try {
@@ -21,6 +21,7 @@ import nextDatabase from '../lib/index';
       database: 'nextDatabase',
     }, {
       createDatabaseIfNotExists: true,
+      destroyDatabaseAfterClose: true,
     });
 
     console.log('Connected to the database');

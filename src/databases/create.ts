@@ -7,8 +7,9 @@
  * @format
  */
 
-import { Connection } from 'mysql';
+import { IDatabase } from '../settings';
 import { IQuery } from '../query';
+import oneline from 'oneline';
 
 export interface ICreate extends IQuery<boolean> {
   characterSet(name: string): ICreate;
@@ -18,7 +19,7 @@ export interface ICreate extends IQuery<boolean> {
 
 export default function create(
   databaseName: string,
-  connection: Connection,
+  nextDatabase: IDatabase,
 ): ICreate {
   const create: ICreate = {
     toString,
@@ -43,7 +44,7 @@ export default function create(
   }
 
   function toString(): string {
-    return `
+    return oneline`
       CREATE DATABASE IF NOT EXISTS ${databaseName}
       ${data.characterSet !== '' ? ` CHARACTER SET ${data.characterSet}` : ''}
       ${data.collate !== '' ? `COLLATE ${data.collate}` : ''}
@@ -53,10 +54,10 @@ export default function create(
 
   function execute(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      connection.query(toString(), (error, _rows, _fields) => {
+      nextDatabase.getConnection().query(toString(), async (error, _rows, _fields) => {
         if (error) {
           // Close the current MySQL connection.
-          connection.end();
+          await nextDatabase.close();
 
           // Reject an error.
           reject(new Error(error.sqlMessage || error.message));

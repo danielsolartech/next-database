@@ -8,23 +8,9 @@
  */
 
 import { Connection, ConnectionConfig, createConnection } from 'mysql';
-import databases, { IDatabases } from './databases';
-import tables, { ITables } from './tables';
-
-interface DatabaseOptions {
-  createDatabaseIfNotExists?: boolean;
-}
-
-interface IDatabase extends IDatabases, ITables {
-  /**
-   * Close the current MySQL connection.
-   * 
-   * @async
-   * @function
-   * @returns { Promise<void> }
-   */
-  close(): Promise<void>;
-}
+import { DatabaseOptions, IDatabase, INextDatabase } from './settings';
+import databases from './databases';
+import tables from './tables';
 
 /**
  * Next Database.
@@ -33,12 +19,12 @@ interface IDatabase extends IDatabases, ITables {
  * @function
  * @param { ConnectionConfig } settings
  * @param { DatabaseOptions | undefined } options
- * @returns { IDatabase }
+ * @returns { INextDatabase }
  */
 export = function database(
   settings: ConnectionConfig,
   options?: DatabaseOptions,
-): Promise<IDatabase> {
+): Promise<INextDatabase> {
   // Verify if the database name is valid.
   if (settings.database && settings.database.includes('-')) {
     throw new Error(`'${settings.database}' is not a valid database name.`);
@@ -96,9 +82,36 @@ export = function database(
 
       function close(): Promise<void> {
         return new Promise((resolve, reject) => {
-          connection.end((error) => {
+          connection.end(async (error) => {
             if (error) {
               reject(error.sqlMessage || error.message);
+              return;
+            }
+
+            const dbName = settings.database;
+
+            if (
+              dbName && dbName.length &&
+              options && options.destroyDatabaseAfterClose
+            ) {
+              // Delete the database name.
+              delete settings.database;
+
+              try {
+                // Create the new connection without the database.
+                const newConnection = await database(settings, options);
+
+                // Delete the database.
+                await newConnection.deleteDatabase(dbName).execute();
+
+                // Close the new connection.
+                await newConnection.close();
+
+                resolve();
+              } catch (error) {
+                reject(error);
+              }
+
               return;
             }
 
@@ -107,10 +120,15 @@ export = function database(
         });
       }
 
-      resolve({
-        ...databases(connection),
-        ...tables(connection),
+      const database_methods: IDatabase = {
         close,
+        getConnection: (): Connection => connection,
+      };
+
+      resolve({
+        ...database_methods,
+        ...databases(database_methods),
+        ...tables(database_methods),
       });
     });
   });

@@ -9,7 +9,7 @@
 
 export interface IQuery<T> {
   /**
-   * Get the SQL as string.
+   * Get the query in a string.
    * 
    * @function
    * @returns { string }
@@ -17,7 +17,7 @@ export interface IQuery<T> {
   toString(): string;
 
   /**
-   * Execute the SQL.
+   * Execute the query.
    * 
    * @async
    * @function

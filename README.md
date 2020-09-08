@@ -16,9 +16,13 @@ ORM for MySQL.
 First, you need build the source code; for this, run `npm run build` and then you can run the examples from the `examples` directory.
 
 ```sh
-# Truncate example
-npm run truncate-example-ts # TypeScript
-npm run truncate-example-js # JavaScript
+# Create table example
+npm run create-table-example-ts # TypeScript
+npm run create-table-example-js # JavaScript
+
+# Truncate table example
+npm run truncate-table-example-ts # TypeScript
+npm run truncate-table-example-js # JavaScript
 ```
 
 ## [License](./LICENSE)

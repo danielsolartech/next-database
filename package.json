@@ -6,8 +6,10 @@
   "type": "./lib/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "truncate-example-ts": "ts-node ./examples/truncate.ts",
-    "truncate-example-js": "node ./examples/truncate.js"
+    "create-table-example-ts": "ts-node ./examples/tables/create.ts",
+    "create-table-example-js": "node ./examples/tables/create.js",
+    "truncate-table-example-ts": "ts-node ./examples/tables/truncate.ts",
+    "truncate-table-example-js": "node ./examples/tables/truncate.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +27,8 @@
   },
   "homepage": "https://github.com/danielsolartech/next-database#readme",
   "dependencies": {
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "oneline": "^1.0.3"
   },
   "devDependencies": {
     "@types/mysql": "^2.15.15",

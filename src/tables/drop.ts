@@ -7,12 +7,12 @@
  * @format
  */
 
-import { Connection } from 'mysql';
+import { IDatabase } from '../settings';
 import { IQuery } from '../query';
 
 export default function drop(
   tableName: string,
-  connection: Connection,
+  nextDatabase: IDatabase,
 ): IQuery<boolean> {
   function toString(): string {
     return `DROP TABLE IF EXISTS ${tableName};`;
@@ -20,10 +20,10 @@ export default function drop(
 
   function execute(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      connection.query(toString(), (error, _rows, _fields) => {
+      nextDatabase.getConnection().query(toString(), async (error, _rows, _fields) => {
         if (error) {
           // Close the current MySQL connection.
-          connection.end();
+          await nextDatabase.close();
 
           // Reject and error.
           reject(error.sqlMessage || error.message);

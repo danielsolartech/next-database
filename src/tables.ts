@@ -7,12 +7,22 @@
  * @format
  */
 
-import { Connection } from 'mysql';
 import { IQuery } from './query';
+import { IDatabase } from './settings';
+import create, { ICreate } from './tables/create';
 import drop from './tables/drop';
 import truncate from './tables/truncate';
 
 export interface ITables {
+  /**
+   * Create a table if not exists.
+   * 
+   * @function
+   * @param { string } name
+   * @returns { ICreate }
+   */
+  createTable(name: string): ICreate;
+
   /**
    * Delete a table if it exists.
    * 
@@ -33,10 +43,11 @@ export interface ITables {
 }
 
 export default function tables(
-  connection: Connection,
+  nextDatabase: IDatabase,
 ): ITables {
   return {
-    deleteTable: (name: string) => drop(name, connection),
-    truncateTable: (name: string) => truncate(name, connection),
+    createTable: (name: string) => create(name, nextDatabase),
+    deleteTable: (name: string) => drop(name, nextDatabase),
+    truncateTable: (name: string) => truncate(name, nextDatabase),
   };
 }

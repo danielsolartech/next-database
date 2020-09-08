@@ -8,7 +8,7 @@
  */
 
 import { IQuery } from './query';
-import { Connection } from 'mysql';
+import { IDatabase } from './settings';
 import create, { ICreate } from './databases/create';
 import drop from './databases/drop';
 
@@ -33,10 +33,10 @@ export interface IDatabases {
 }
 
 export default function databases(
-  connection: Connection,
+  nextDatabase: IDatabase,
 ): IDatabases {
   return {
-    createDatabase: (name: string) => create(name, connection),
-    deleteDatabase: (name: string) => drop(name, connection),
+    createDatabase: (name: string) => create(name, nextDatabase),
+    deleteDatabase: (name: string) => drop(name, nextDatabase),
   };
 }
