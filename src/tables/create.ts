@@ -13,8 +13,22 @@ import { IColumnOption, column_options_to_string } from '../columns/options';
 import oneline from 'oneline';
 
 export interface ICreate extends IQuery<boolean> {
+  /**
+   * Add a new column to the table.
+   * 
+   * @function
+   * @param { IColumnOption } options
+   * @returns { ICreate }
+   */
   column(options: IColumnOption): ICreate;
 
+  /**
+   * Add a group of columns to the table.
+   * 
+   * @function
+   * @param { IColumnOption[] } options
+   * @returns { ICreate }
+   */
   columns(options: IColumnOption[]): ICreate;
 }
 

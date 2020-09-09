@@ -1,0 +1,16 @@
+# Settings
+.gitignore
+.github
+.vscode
+
+# Node.JS
+node_modules
+
+# Development
+tsconfig.json
+.env
+src
+
+# Other
+package-lock.json
+examples

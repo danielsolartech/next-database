@@ -11,6 +11,7 @@ import { IQuery } from './query';
 import { IDatabase } from './settings';
 import create, { ICreate } from './tables/create';
 import drop from './tables/drop';
+import insert, { IInsert } from './tables/insert';
 import truncate from './tables/truncate';
 
 export interface ITables {
@@ -33,6 +34,15 @@ export interface ITables {
   deleteTable(name: string): IQuery<boolean>;
 
   /**
+   * Insert data to a table.
+   * 
+   * @function
+   * @param { string } name
+   * @returns { IInsert<T> }
+   */
+  insertTable<T = any>(name: string): IInsert<T>;
+
+  /**
    * Truncate a table if it exists.
    * 
    * @function
@@ -48,6 +58,7 @@ export default function tables(
   return {
     createTable: (name: string) => create(name, nextDatabase),
     deleteTable: (name: string) => drop(name, nextDatabase),
+    insertTable: (name: string) => insert(name, nextDatabase),
     truncateTable: (name: string) => truncate(name, nextDatabase),
   };
 }

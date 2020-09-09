@@ -1,15 +1,17 @@
 {
   "name": "next-database",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "ORM for MySQL.",
   "main": "./lib/index.js",
   "type": "./lib/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "create-table-example-ts": "ts-node ./examples/tables/create.ts",
-    "create-table-example-js": "node ./examples/tables/create.js",
-    "truncate-table-example-ts": "ts-node ./examples/tables/truncate.ts",
-    "truncate-table-example-js": "node ./examples/tables/truncate.js"
+    "create-table-example-ts": "cross-env example=create-table ts-node ./examples/ts/tables/create.ts",
+    "create-table-example-js": "cross-env example=create-table node ./examples/js/tables/create.js",
+    "insert-table-example-ts": "cross-env example=insert-table ts-node ./examples/ts/tables/insert.ts",
+    "insert-table-example-js": "cross-env example=insert-table node ./examples/js/tables/insert.js",
+    "truncate-table-example-ts": "cross-env example=truncate-table ts-node ./examples/ts/tables/truncate.ts",
+    "truncate-table-example-js": "cross-env example=truncate-table node ./examples/js/tables/truncate.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,15 @@
     "url": "https://github.com/danielsolartech/next-database/issues"
   },
   "homepage": "https://github.com/danielsolartech/next-database#readme",
+  "engines": {
+    "node": ">=12.x"
+  },
+  "files": [
+    "lib",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
   "dependencies": {
     "mysql": "^2.18.1",
     "oneline": "^1.0.3"
@@ -33,6 +44,8 @@
   "devDependencies": {
     "@types/mysql": "^2.15.15",
     "@types/node": "^14.6.4",
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.2"
   }
