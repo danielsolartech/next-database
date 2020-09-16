@@ -13,6 +13,7 @@ import create, { ICreate } from './tables/create';
 import drop from './tables/drop';
 import insert, { IInsert } from './tables/insert';
 import truncate from './tables/truncate';
+import update, { IUpdate } from './tables/update';
 
 export interface ITables {
   /**
@@ -50,6 +51,14 @@ export interface ITables {
    * @returns { IQuery<boolean> }
    */
   truncateTable(name: string): IQuery<boolean>;
+
+  /**
+   * Update a column of a table.
+   * 
+   * @param { string } name
+   * @returns { IUpdate }
+   */
+  updateTable(name: string): IUpdate;
 }
 
 export default function tables(
@@ -60,5 +69,6 @@ export default function tables(
     deleteTable: (name: string) => drop(name, nextDatabase),
     insertTable: (name: string) => insert(name, nextDatabase),
     truncateTable: (name: string) => truncate(name, nextDatabase),
+    updateTable: (name: string) => update(name, nextDatabase),
   };
 }

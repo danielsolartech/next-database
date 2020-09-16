@@ -40,8 +40,7 @@ export async function createTestTable(
         type: 'varchar',
         max_length: 100,
         null: false,
-        unique: true,
-      }
+      },
     ])
     .execute();
 

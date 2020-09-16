@@ -7,6 +7,8 @@
  * @format
  */
 
+export type ColumnValue = string | number | boolean | null;
+
 /**
  * Column options.
  * 
@@ -51,7 +53,7 @@ export interface IColumnOption {
   /**
    * The default value.
    */
-  default_value?: string | number | boolean | null;
+  default_value?: ColumnValue;
 
   /**
    * If the column value can auto increment.

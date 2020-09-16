@@ -36,8 +36,7 @@ async function createTestTable(database) {
         type: 'varchar',
         max_length: 100,
         null: false,
-        unique: true,
-      }
+      },
     ])
     .execute();
 

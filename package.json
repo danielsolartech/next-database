@@ -11,7 +11,9 @@
     "insert-table-example-ts": "cross-env example=insert-table ts-node ./examples/ts/tables/insert.ts",
     "insert-table-example-js": "cross-env example=insert-table node ./examples/js/tables/insert.js",
     "truncate-table-example-ts": "cross-env example=truncate-table ts-node ./examples/ts/tables/truncate.ts",
-    "truncate-table-example-js": "cross-env example=truncate-table node ./examples/js/tables/truncate.js"
+    "truncate-table-example-js": "cross-env example=truncate-table node ./examples/js/tables/truncate.js",
+    "update-table-example-ts": "cross-env example=update-table ts-node ./examples/ts/tables/update.ts",
+    "update-table-example-js": "cross-env example=update-table node ./examples/js/tables/update.js"
   },
   "repository": {
     "type": "git",

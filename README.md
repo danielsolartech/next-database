@@ -2,7 +2,6 @@
 
 ![NPM Downloads](https://img.shields.io/npm/dt/next-database)
 ![Version](https://img.shields.io/github/package-json/v/danielsolartech/next-database)
-
 ![Build](https://img.shields.io/github/workflow/status/danielsolartech/next-database/Node.JS)
 [![License](https://img.shields.io/github/license/danielsolartech/next-database)](./LICENSE)
 ![Code Size](https://img.shields.io/github/languages/code-size/danielsolartech/next-database)
